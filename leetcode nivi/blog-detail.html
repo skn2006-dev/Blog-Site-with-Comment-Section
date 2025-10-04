@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Detail</title>
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📖 Blog Detail</h1>
+      <nav><a href="blogs.html">Back to Published Blogs</a></nav>
+    </header>
+
+    <main>
+      <div id="blog-detail"></div>
+
+      <section id="comments-section">
+        <h2>💬 Comments</h2>
+        <form id="comment-form">
+          <input type="text" id="commenter" placeholder="Your name" required>
+          <textarea id="comment-text" rows="3" placeholder="Write a comment..." required></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+        <ul id="comment-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

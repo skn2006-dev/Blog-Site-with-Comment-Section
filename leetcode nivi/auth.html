@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Site - Login / Sign Up</title>
+  <link href="auth.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2 id="form-title">Login to Your Account</h2>
+
+      <form id="auth-form">
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="input-group hidden" id="name-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name">
+        </div>
+
+        <button type="submit" id="submit-btn">Login</button>
+
+        <p class="toggle-text">
+          Don't have an account?
+          <span id="toggle-link">Sign up</span>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const toggleLink = document.getElementById("toggle-link");
+    const formTitle = document.getElementById("form-title");
+    const submitBtn = document.getElementById("submit-btn");
+    const nameGroup = document.getElementById("name-group");
+
+    let isSignup = false;
+
+    toggleLink.addEventListener("click", () => {
+      isSignup = !isSignup;
+      if (isSignup) {
+        formTitle.textContent = "Create Your Account";
+        submitBtn.textContent = "Sign Up";
+        toggleLink.textContent = "Login";
+        document.querySelector(".toggle-text").firstChild.textContent = "Already have an account? ";
+        nameGroup.classList.remove("hidden");
+      } else {
+        formTitle.textContent = "Login to Your Account";
+        submitBtn.textContent = "Login";
+        toggleLink.textContent = "Sign up";
+        document.querySelector(".toggle-text").firstChild.textContent = "Don't have an account? ";
+        nameGroup.classList.add("hidden");
+      }
+    });
+  </script>
+
+</body>
+</html>

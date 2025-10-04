@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Editor</title>
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📝 Blog Editor</h1>
+      <nav>
+        <a href="blogs.html">View Published Blogs</a>
+      </nav>
+    </header>
+
+    <main>
+      <form id="blog-form">
+        <label for="title">Blog Title</label>
+        <input type="text" id="title" placeholder="Enter blog title" required>
+
+        <label for="content">Content</label>
+        <textarea id="content" rows="10" placeholder="Write your blog here..." required></textarea>
+
+        <div class="btn-group">
+          <button type="submit">Publish</button>
+          <button type="button" id="update-btn" class="hidden">Update</button>
+          <button type="button" id="clear-btn">Clear</button>
+        </div>
+      </form>
+
+      <h2>🗂️ Your Drafts</h2>
+      <ul id="draft-list"></ul>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
