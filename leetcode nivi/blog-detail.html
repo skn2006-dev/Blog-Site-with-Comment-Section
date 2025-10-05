@@ -1,35 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Detail</title>
-  <link rel="stylesheet" href="blog.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>📖 Blog Detail</h1>
-      <nav><a href="blogs.html">Back to Published Blogs</a></nav>
-    </header>
+// script.js
 
-    <main>
-      <div id="blog-detail"></div>
+// Select elements
+const commentForm = document.getElementById('comment-form');
+const commenterInput = document.getElementById('commenter');
+const commentTextInput = document.getElementById('comment-text');
+const commentList = document.getElementById('comment-list');
 
-      <section id="comments-section">
-        <h2>💬 Comments</h2>
-        <form id="comment-form">
-          <input type="text" id="commenter" placeholder="Your name" required>
-          <textarea id="comment-text" rows="3" placeholder="Write a comment..." required></textarea>
-          <button type="submit">Post Comment</button>
-        </form>
-        <ul id="comment-list"></ul>
-      </section>
-    </main>
-  </div>
+// Load saved comments from localStorage
+let comments = JSON.parse(localStorage.getItem('comments')) || [];
+comments.forEach((comment, index) => addCommentToDOM(comment.name, comment.text, comment.time, index));
 
-  <script src="script.js"></script>
-</body>
-</html>
+// Handle form submission
+commentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
 
+  const name = commenterInput.value.trim();
+  const text = commentTextInput.value.trim();
 
+  if (!name || !text) return;
+
+  const now = new Date();
+  const timestamp = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+
+  const comment = { name, text, time: timestamp };
+  
+  // Save to localStorage
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+
+  // Add comment to DOM
+  addCommentToDOM(name, text, timestamp, comments.length - 1);
+
+  // Reset form
+  commentForm.reset();
+});
+
+// Function to add comment to the DOM
+function addCommentToDOM(name, text, time, index) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <strong>${name}</strong> <span>(${time})</span><br>${text}
+    <button class="delete-btn" data-index="${index}">Delete</button>
+  `;
+  commentList.appendChild(li);
+
+  // Add delete functionality
+  li.querySelector('.delete-btn').addEventListener('click', () => {
+    comments.splice(index, 1); // Remove from array
+    localStorage.setItem('comments', JSON.stringify(comments)); // Update localStorage
+    commentList.innerHTML = ''; // Clear the list
+    comments.forEach((c, i) => addCommentToDOM(c.name, c.text, c.time, i)); // Re-render
+  });
+}
